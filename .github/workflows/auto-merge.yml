@@ -10,15 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          cat .git/config
-          git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
-          cat .git/config
-      - run: |
           git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
-          git log --graph --pretty=format:"%h %ad %s"
-      - run: |
           export CURRENT_BRANCH=$(git name-rev --name-only HEAD)
-          echo $CURRENT_BRANCH
+          git switch $CURRENT_BRANCH
           git switch main
           git log --graph --pretty=format:"%h %ad %s"
           git merge --no-ff $CURRENT_BRANCH
