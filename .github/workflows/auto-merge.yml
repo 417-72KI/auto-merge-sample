@@ -9,11 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: fetch and merge
-        run: |
+      - run: |
           git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
+          git log --graph --pretty=format:"%h %ad %s"
+      - run: |
           export CURRENT_BRANCH=$(git name-rev --name-only HEAD)
           echo $CURRENT_BRANCH
           git switch main
+          git log --graph --pretty=format:"%h %ad %s"
           git merge --no-ff $CURRENT_BRANCH
-          git log
+      - run: git log --graph --pretty=format:"%h %ad %s"
