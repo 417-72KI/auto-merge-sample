@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: print
+      - name: fetch
         run: |
           git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
+          git switch main
       - name: print
         run: |
-          pwd
           git branch
           git log
+          echo $BRANCH_NAME
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
