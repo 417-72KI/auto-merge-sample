@@ -8,19 +8,10 @@ jobs:
   auto-merge:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo '${{ github.event.pull_request.head.sha }}'
       - uses: actions/checkout@v2
-        with:
-          ref: patch-1
       - name: print
         run: |
-          pwd
-          git branch
-          git log
-      - uses: actions/checkout@v2
-        with:
-          ref: main
+          git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
       - name: print
         run: |
           pwd
