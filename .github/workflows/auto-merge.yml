@@ -10,7 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"  --no-single-branch
+          cat .git/config
+      - run: |
+          git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
           git log --graph --pretty=format:"%h %ad %s"
       - run: |
           export CURRENT_BRANCH=$(git name-rev --name-only HEAD)
