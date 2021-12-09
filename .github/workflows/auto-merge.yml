@@ -1,0 +1,11 @@
+name: Auto merge
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
