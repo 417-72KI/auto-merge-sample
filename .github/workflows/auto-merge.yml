@@ -12,7 +12,7 @@ jobs:
       - name: fetch and merge
         run: |
           git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
-          CURRENT_BRANCH=$(git name-rev --name-only HEAD)
+          export CURRENT_BRANCH=$(git name-rev --name-only HEAD)
           echo $CURRENT_BRANCH
           git switch main
           git merge --no-ff $CURRENT_BRANCH
