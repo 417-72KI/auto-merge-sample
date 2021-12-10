@@ -11,11 +11,16 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           git fetch --shallow-since "$(date -d "$(date +'%Y-%m-01') 1 month ago" +'%Y/%m/%d')"
+          echo ''
+          git log --graph --pretty=format:"%h %ad %s"
+          echo ''
           git branch -a
-          echo $(git rev-parse --is-shallow-repository)
           export CURRENT_BRANCH=$(git name-rev --name-only HEAD)
+          echo ''
           git switch $CURRENT_BRANCH
+          echo ''
           git switch main
+          echo ''
           git log --graph --pretty=format:"%h %ad %s"
         #  git merge --no-ff $CURRENT_BRANCH
       - run: git log --graph --pretty=format:"%h %ad %s"
